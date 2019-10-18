@@ -1,44 +1,38 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dp-server
+  name: dp-server-deploy:v2
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: dp-server
-      role: master
       tier: backend
-  replicas: 1
   template:
     metadata:
       labels:
         app: dp-server
-        role: master
         tier: backend
     spec:
       containers:
-      - name: master
-        image: gcr.io/cloudpark-e6cc4/dp-server:v1
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
+      - name: container1
+        image: gcr.io/cloudpark-e6cc4/dp-server:v2
         ports:
         - containerPort: 4000
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: server-side-configs
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: dp-server
-  labels:
-    app: dp-server
-    role: master
-    tier: backend
+  name: dp-server-service:v2
 spec:
   ports:
   - port: 4000
     targetPort: 4000
   selector:
     app: dp-server
-    role: master
     tier: backend
+  type: LoadBalancer
