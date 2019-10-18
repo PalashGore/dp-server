@@ -1,24 +1,24 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: server
+  name: dp-server
 spec:
   selector:
     matchLabels:
-      app: server
+      app: dp-server
       role: master
       tier: backend
   replicas: 1
   template:
     metadata:
       labels:
-        app: server
+        app: dp-server
         role: master
         tier: backend
     spec:
       containers:
       - name: master
-        image: gcr.io/cloudpark-e6cc4/server-deployment:1.0.1
+        image: gcr.io/cloudpark-e6cc4/dp-server:v1
         resources:
           requests:
             cpu: 100m
@@ -29,9 +29,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: server
+  name: dp-server
   labels:
-    app: server
+    app: dp-server
     role: master
     tier: backend
 spec:
@@ -39,6 +39,6 @@ spec:
   - port: 4000
     targetPort: 4000
   selector:
-    app: server
+    app: dp-server
     role: master
     tier: backend
