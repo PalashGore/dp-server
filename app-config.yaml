@@ -4,4 +4,4 @@ metadata:
   name: server-side-configs
 data:
   PORT: "4000"
-  CLIENT: <front-end-app-service-ip>:<port>
+  CLIENT: 34.73.8.196:80
