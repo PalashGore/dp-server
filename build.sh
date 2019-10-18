@@ -8,5 +8,6 @@ else
 fi
 
 echo "Building docker image with tag :$VERSION"
-cd C:/projects/deployment/server-deployment
+cd C:/projects/dp/dp-server
 docker build -t server-image:$VERSION .
+gcloud docker -- push gcr.io/cloudpark-e6cc4/server-image:$VERSION
