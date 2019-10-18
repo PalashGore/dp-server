@@ -1,45 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dp-server-deploy-v2
+  name: dp-server-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: dp-server
-      tier: backend
   template:
     metadata:
       labels:
         app: dp-server
-        tier: backend
     spec:
       containers:
       - name: container1
-        image: gcr.io/cloudpark-e6cc4/dp-server:v2
+        image: gcr.io/cloudpark-e6cc4/server-new:new
         resources:
           requests:
             cpu: 100m          
         ports:
-        - containerPort: 4000
-        imagePullPolicy: IfNotPresent
+        - containerPort: 5000
         envFrom:
         - configMapRef:
             name: server-side-configs
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: dp-server-service-v2
-spec:
-  ports:
-  - port: 4000
-    targetPort: 4000
-  selector:
-    app: dp-server
-    tier: backend
-  type: LoadBalancer
-status:
-  loadBalancer:
-    ingress:
-    - ip: 34.74.181.18

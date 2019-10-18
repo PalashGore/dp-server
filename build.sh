@@ -9,5 +9,5 @@ fi
 
 echo "Building docker image with tag :$VERSION"
 cd C:/projects/dp/dp-server
-docker build -t gcr.io/cloudpark-e6cc4/dp-server:$VERSION .
-gcloud docker -- push gcr.io/cloudpark-e6cc4/dp-server:$VERSION
+docker build -t gcr.io/cloudpark-e6cc4/server-new:$VERSION .
+gcloud docker -- push gcr.io/cloudpark-e6cc4/server-new:$VERSION
